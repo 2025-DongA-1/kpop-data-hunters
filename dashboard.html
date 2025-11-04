@@ -240,7 +240,7 @@
     }
   });
 
- // (3) 외국인 아이돌 국적 비율 TOP10 (상위 5개 내부 표시, 비율 크고 간격 추가)
+ // (3) 외국인 아이돌 국적 비율 TOP10 (상위 5개 내부 + 아래에 전체 범례)
 new Chart(document.getElementById('nationalityChart'), {
   type: 'doughnut',
   data: {
@@ -258,13 +258,46 @@ new Chart(document.getElementById('nationalityChart'), {
   options: {
     cutout: '35%',
     plugins: {
-      legend: { display: false },
       tooltip: { enabled: false },
       title: {
         display: true,
         text: '외국인 아이돌 국적 비율 TOP 10 (한국 제외)',
         color: '#b0b8ff',
         font: { size: 18 }
+      },
+      legend: {
+        display: true,
+        position: 'bottom',
+        labels: {
+        font: { size: 14, family: 'Noto Sans KR', color: '#b0b8ff'},
+        padding: 20,
+        generateLabels: function(chart) {
+        const data = chart.data;
+        const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+
+        // 한국어 변환
+        const countryNames = {
+          'china': '중국', 'japan': '일본', 'thailand': '태국', 'usa': '미국',
+          'taiwan': '대만', 'australia': '호주', 'canada': '캐나다', 'vietnam': '베트남',
+          'indonesia': '인도네시아', 'philippines': '필리핀', 'malaysia': '말레이시아',
+          'mongolia': '몽골', 'hong kong': '홍콩', 'singapore': '싱가포르', 'uk': '영국',
+          'france': '프랑스', 'germany': '독일'
+        };
+
+        // ✅ 호주부터 독일까지만 표시 (6~10번째)
+        const start = 5; // 6번째(호주)부터
+        const end = 10;  // 10번째(독일)까지
+
+        return data.labels.slice(start, end).map((label, i) => ({
+          text: `${countryNames[label.toLowerCase()] || label} (${((data.datasets[0].data[i + start] / total) * 100).toFixed(1)}%)`,
+          fillStyle: data.datasets[0].backgroundColor[i + start],
+          strokeStyle: data.datasets[0].backgroundColor[i + start],
+          lineWidth: 2,
+          hidden: false,
+          index: i + start
+            }));
+          }
+        }
       }
     },
     animation: { duration: 0 }
@@ -276,31 +309,24 @@ new Chart(document.getElementById('nationalityChart'), {
       const meta = chart.getDatasetMeta(0);
       const dataset = chart.data.datasets[0];
       const total = dataset.data.reduce((a, b) => a + b, 0);
-      const top5 = meta.data.slice(0, 5); // 상위 5개만 표시
+      const top5 = meta.data.slice(0, 5);
 
-      
-
+      // ===== 상위 5개 도넛 내부 표시 =====
       ctx.save();
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-
       top5.forEach((arc, i) => {
         const { x, y } = arc.tooltipPosition();
         const label = chart.data.labels[i];
         const value = dataset.data[i];
         const percent = ((value / total) * 100).toFixed(1) + '%';
-
-        // 국가 이름 (위쪽)
-        ctx.font = ' 14px "Noto Sans KR"';
+        ctx.font = '18px "Noto Sans KR"';
         ctx.fillStyle = '#fff';
-        ctx.fillText(label, x, y - 16); // 🔹 약간 위로 이동
-
-        // 비율 (아래쪽, 더 크고 간격 넓힘)
-        ctx.font = ' 18px "Noto Sans KR"';
+        ctx.fillText(label, x, y - 10);
+        ctx.font = '13px "Noto Sans KR"';
         ctx.fillStyle = '#fff';
-        ctx.fillText(percent, x, y + 10); // 🔹 더 아래로 내려서 간격 확대
+        ctx.fillText(percent, x, y + 12);
       });
-
       ctx.restore();
     }
   }]
