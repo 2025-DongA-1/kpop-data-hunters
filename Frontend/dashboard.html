@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>K-pop 아이돌 대시보드</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="{{ url_for('static', filename='debut_data.js') }}"></script>
+  <script src="../static/debut_data.js"></script>
   <style>
     body {
       background: #f8f9fa;
@@ -66,9 +66,29 @@
     align-items: center;
   justify-content: flex-start; /* 추가 */
 }
+    .project-title {
+      width: 1300px;
+      text-align: center;
+      background: linear-gradient(80deg, #a18cd1 0%, #fbc2eb 100%);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 4px 0;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      letter-spacing: 1px;
+      margin-bottom: 30px;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
   </style>
 </head>
 <body>
+
+  <div class="project-title">
+    <h1>아이돌 국적 데이터로 본 K-POP 글로벌라이제이션</h1>
+  </div>
+
   <!-- 상단: 주요 그래프 -->
   <div class="dashboard">
     <div class="row">
