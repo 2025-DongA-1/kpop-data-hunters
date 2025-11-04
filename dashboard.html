@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>K-pop 아이돌 대시보드</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/backend/data/kpop_eda.ipynb"></script> <!-- ⚠️ 실제로는 JS파일 필요 -->
+  <style>
+    body {
+      background: #101820;
+      font-family: 'Noto Sans KR', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 50px 0;
+      color: #fff;
+    }
+    .dashboard {
+      width: 1200px;
+      background: #1b1f2f;
+      border-radius: 16px;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.4);
+      padding: 40px;
+      display: flex;
+      flex-direction: row;
+      gap: 50px;
+    }
+    .chart-box {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      font-weight: 500;
+      font-size: 20px;
+      text-align: center;
+      color: #b0b8ff;
+    }
+    canvas {
+      width: 100%;
+      height: 420px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <!-- 왼쪽: 연도별 아이돌 수 + 3년 이동평균 -->
+    <div class="chart-box">
+      <canvas id="trendChart"></canvas>
+    </div>
+
+    <!-- 오른쪽: 외국인 국적 비율 TOP10 -->
+    <div class="chart-box">
+      <canvas id="nationalityChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    // ======= 임시 데이터 (실제는 debutData 로 교체) =======
+    const data = typeof debutData !== 'undefined' ? debutData : [];
+
+    // ======= 필드명 정규화 =======
+    data.forEach(d => {
+      d.year = d.year || d.debut_year || d.active_year;
+      d.nationality = d.nationality || d.country || d.birth_country;
+    });
+
+    // ======= 연도별 데뷔 아이돌 수 + 이동평균 =======
+    const yearCount = {};
+    data.forEach(d => {
+      const year = parseInt(d.year);
+      if (isNaN(year) || year < 2005) return;
+      yearCount[year] = (yearCount[year] || 0) + 1;
+    });
+    const years = Object.keys(yearCount).map(Number).sort((a,b)=>a-b);
+    const counts = years.map(y => yearCount[y]);
+    const movingAvg = counts.map((_, i, arr) => {
+      const slice = arr.slice(Math.max(0, i-2), i+1);
+      const valid = slice.filter(v => !isNaN(v));
+      const avg = valid.length ? valid.reduce((a,b)=>a+b,0)/valid.length : 0;
+      return avg.toFixed(2);
+    });
+
+    // ======= 외국인 아이돌 국적 비율 TOP 10 =======
+    const nationalityCount = {};
+    data.forEach(d => {
+      if (!d.nationality) return;
+      const nat = d.nationality.toString().trim().toLowerCase();
+      const koreanWords = ['korea', 'south korea', 'republic of korea', '대한민국', '한국', 'korean'];
+      if (koreanWords.some(k => nat.includes(k))) return; // 한국 제외
+      nationalityCount[nat] = (nationalityCount[nat] || 0) + 1;
+    });
+    const top10 = Object.entries(nationalityCount).sort((a,b)=>b[1]-a[1]).slice(0,10);
+    const nationalLabels = top10.map(([k]) => k.toUpperCase());
+    const nationalValues = top10.map(([,v]) => v);
+
+    // ======= 그래프 =======
+    // (1) 연도별 데뷔 아이돌 수 + 이동평균
+    new Chart(document.getElementById('trendChart'), {
+      type: 'bar',
+      data: {
+        labels: years,
+        datasets: [
+          {
+            label: '데뷔 아이돌 수',
+            data: counts,
+            backgroundColor: 'rgba(61,132,255,0.8)',
+            borderWidth: 0
+          },
+          {
+            label: '3년 이동평균',
+            data: movingAvg,
+            type: 'line',
+            borderColor: '#ff6b81',
+            borderWidth: 3,
+            pointRadius: 4,
+            fill: false,
+            tension: 0.3
+          }
+        ]
+      },
+      options: {
+        plugins: {
+          legend: { labels: { color: '#fff' } },
+          title: {
+            display: true,
+            text: '연도별 데뷔 아이돌 수 & 3년 이동평균',
+            color: '#b0b8ff',
+            font: { size: 18 }
+          }
+        },
+        scales: {
+          x: { ticks: { color: '#ccc' }, title: { display: true, text: '연도', color: '#aaa' } },
+          y: { ticks: { color: '#ccc' }, title: { display: true, text: '아이돌 수', color: '#aaa' }, beginAtZero: true }
+        }
+      }
+    });
+
+    // (2) 외국인 국적 비율 TOP10 (원형)
+    new Chart(document.getElementById('nationalityChart'), {
+      type: 'doughnut',
+      data: {
+        labels: nationalLabels,
+        datasets: [{
+          data: nationalValues,
+          backgroundColor: [
+            '#ff6384','#36a2eb','#ffce56','#4bc0c0','#9966ff',
+            '#ff9f40','#c9cbcf','#f77825','#00a896','#f94144'
+          ]
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { position: 'bottom', labels: { color: '#fff' } },
+          title: {
+            display: true,
+            text: '외국인 아이돌 국적 TOP 10 (한국 제외)',
+            color: '#b0b8ff',
+            font: { size: 18 }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+
