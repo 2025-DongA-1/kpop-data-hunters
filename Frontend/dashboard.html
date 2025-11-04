@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <title>K-pop 아이돌 대시보드</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="./debut_data.js"></script>
+  <script src="{{ url_for('static', filename='debut_data.js') }}"></script>
   <style>
     body {
-      background: #0e1116;
-      color: #ffffff;
+      background: #f8f9fa;
+      color: #212529; 
       font-family: 'Noto Sans KR', sans-serif;
       margin: 0;
       padding: 50px 0;
@@ -19,7 +19,7 @@
 
     .dashboard {
       width: 1200px;
-      background: #1a1d27;
+      background: #ffffff; 
       border-radius: 18px;
       box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
       padding: 40px;
@@ -51,12 +51,12 @@
     .empty-box {
       flex: 1;
       height: 400px;
-      background: #2a2e3d;
+      background: #f0f0f0;
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #7a7f99;
+      color: #6c757d;
       font-size: 18px;
     }
     .chart-box {
@@ -185,11 +185,11 @@
       },
       options: {
         plugins: {
-          legend: { labels: { color: '#fff' } },
+          legend: { labels: { color: '#212529' } },
           title: {
             display: true,
             text: '연도별 데뷔 아이돌 수 & 3년 이동평균 (2005~)',
-            color: '#b0b8ff',
+            color: '#6a78ee',
             font: { size: 18 }
           }
         },
@@ -217,11 +217,11 @@
     },
     options: {
       plugins: {
-        legend: { position: 'top', labels: { color: '#fff' } },
+        legend: { position: 'top', labels: { color: '#212529' } },
         title: {
           display: true,
           text: '연도별 외국인 아이돌 비율 변화 (2009년 이후)',
-          color: '#b0b8ff',
+          color: '#6a78ee',
           font: { size: 18 }
         }
       },
@@ -262,14 +262,15 @@ new Chart(document.getElementById('nationalityChart'), {
       title: {
         display: true,
         text: '외국인 아이돌 국적 비율 TOP 10 (한국 제외)',
-        color: '#b0b8ff',
+        color: '#6a78ee',
         font: { size: 18 }
       },
       legend: {
         display: true,
         position: 'bottom',
         labels: {
-        font: { size: 14, family: 'Noto Sans KR', color: '#b0b8ff'},
+        color: '#212529',
+        font: { size: 14, family: 'Noto Sans KR'},
         padding: 20,
         generateLabels: function(chart) {
         const data = chart.data;
@@ -297,10 +298,13 @@ new Chart(document.getElementById('nationalityChart'), {
           index: i + start
             }));
           }
-        }
-      }
+        },
+        onClick: (e, legendItem, legend) => {
+        // 아무것도 안 해서 토글 동작 막기
+        e.stopPropagation();
+      },
+    }
     },
-    animation: { duration: 0 }
   },
   plugins: [{
     id: 'labelInside',
