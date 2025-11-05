@@ -1,3 +1,47 @@
+    // ================== (1) 기획사별 외국인 비율 차트 ==================
+async function drawForeignChart() {
+  const response = await fetch("/static/company_rate.json");
+  const data = await response.json();
+
+  const labels = data.map(d => d.Company_norm);
+  const values = data.map(d => d.foreign_ratio_pct);
+
+  const ctx = document.getElementById("foreignChart");
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "외국인 비율 (%)",
+        data: values,
+        backgroundColor: "#b07fd2"
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: {
+        title: {
+          display: true,
+          text: "기획사별 외국인 아이돌 비율 TOP 10",
+          color: "#6a78ee",      // ✅ 제목 색상
+          font: {
+            size: 18,           // ✅ 폰트 크기
+            family: "Noto Sans KR" // 선택 (없어도 됨)
+          },
+          padding: { top: 10, bottom: 12 }
+        }
+      },
+      scales: {
+        x: { beginAtZero: true }
+      }
+    }
+  });
+}
+
+
+drawForeignChart();
+
     // ======= 데이터 로드 =======
     const data = debutData;
 

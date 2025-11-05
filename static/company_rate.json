@@ -1,0 +1,62 @@
+[
+  {
+    "Company_norm": "SM Entertainment",
+    "foreign_ratio_pct": 29.310344827586203,
+    "idol_count": 58,
+    "group_count": 8
+  },
+  {
+    "Company_norm": "Yuehua",
+    "foreign_ratio_pct": 27.77777777777778,
+    "idol_count": 18,
+    "group_count": 3
+  },
+  {
+    "Company_norm": "Pledis",
+    "foreign_ratio_pct": 24.137931034482758,
+    "idol_count": 29,
+    "group_count": 4
+  },
+  {
+    "Company_norm": "JYP Entertainment",
+    "foreign_ratio_pct": 21.428571428571427,
+    "idol_count": 56,
+    "group_count": 10
+  },
+  {
+    "Company_norm": "Cube",
+    "foreign_ratio_pct": 18.91891891891892,
+    "idol_count": 37,
+    "group_count": 6
+  },
+  {
+    "Company_norm": "YG Entertainment",
+    "foreign_ratio_pct": 14.705882352941178,
+    "idol_count": 34,
+    "group_count": 6
+  },
+  {
+    "Company_norm": "FNC",
+    "foreign_ratio_pct": 9.615384615384617,
+    "idol_count": 52,
+    "group_count": 9
+  },
+  {
+    "Company_norm": "n.CH",
+    "foreign_ratio_pct": 8.333333333333332,
+    "idol_count": 24,
+    "group_count": 4
+  },
+  {
+    "Company_norm": "WM",
+    "foreign_ratio_pct": 6.666666666666667,
+    "idol_count": 15,
+    "group_count": 3
+  },
+  {
+    "Company_norm": "LOEN",
+    "foreign_ratio_pct": 6.666666666666667,
+    "idol_count": 15,
+    "group_count": 3
+  }
+]
