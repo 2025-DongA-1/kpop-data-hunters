@@ -1,5 +1,4 @@
- 
-// ======= 데이터 로드 =======
+    // ======= 데이터 로드 =======
     const data = debutData;
 
     // ======= 필드명 보정 =======
@@ -74,7 +73,8 @@
             label: '데뷔 아이돌 수',
             data: counts,
             backgroundColor: 'rgba(54, 162, 235, 0.8)',
-            borderWidth: 0
+            borderWidth: 0,
+            order: 2 // ✅ 막대를 뒤로 보냄 (낮을수록 먼저 그림)
           },
           {
             label: '3년 이동평균',
@@ -84,7 +84,8 @@
             borderWidth: 3,
             pointRadius: 4,
             fill: false,
-            tension: 0.3
+            tension: 0.3,
+            order: 1 // ✅ 라인을 위로 올림 (높을수록 나중에 그림)
           }
         ]
       },
