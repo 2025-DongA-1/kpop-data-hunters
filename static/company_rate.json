@@ -1,36 +1,36 @@
 [
   {
-    "Company_norm": "SM Entertainment",
+    "Company_norm": "SM",
     "foreign_ratio_pct": 29.310344827586203,
     "idol_count": 58,
     "group_count": 8
   },
   {
-    "Company_norm": "Yuehua",
+    "Company_norm": "위에화",
     "foreign_ratio_pct": 27.77777777777778,
     "idol_count": 18,
     "group_count": 3
   },
   {
-    "Company_norm": "Pledis",
+    "Company_norm": "플레디스",
     "foreign_ratio_pct": 24.137931034482758,
     "idol_count": 29,
     "group_count": 4
   },
   {
-    "Company_norm": "JYP Entertainment",
+    "Company_norm": "JYP",
     "foreign_ratio_pct": 21.428571428571427,
     "idol_count": 56,
     "group_count": 10
   },
   {
-    "Company_norm": "Cube",
+    "Company_norm": "큐브",
     "foreign_ratio_pct": 18.91891891891892,
     "idol_count": 37,
     "group_count": 6
   },
   {
-    "Company_norm": "YG Entertainment",
+    "Company_norm": "YG",
     "foreign_ratio_pct": 14.705882352941178,
     "idol_count": 34,
     "group_count": 6
