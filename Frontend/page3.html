@@ -5,7 +5,8 @@
   <title>K-pop 아이돌 대시보드</title>
   <script src="{{ url_for('static', filename='debut_data.js') }}"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
 <body>
   
@@ -17,31 +18,35 @@
 <aside id="sidebar" class="sidebar">
   <img id = "kdhlogo" src="../static/kdhlogo.png">
   <ul class="menu">
-    <li><a href="/"> 홈</a></li>
-    <li><a href="/page2" >⏮ 이전 페이지</a></li>
-    <li><a href="/page3" class="active">⏭ 다음 페이지</a></li>
+    <li><a href="/"> K-POP 산업 규모 변화 지표</a></li>
+    <li><a href="/page2" >K-POP 산업의 글로벌 진화</a></li>
+    <li><a href="/page3" class="active">K-POP 수출 지표</a></li>
   </ul>
 </aside>
 
 
   <div class="title">
-    <span>안녕하세요</span>
+    <span class="kdh-logo">K-POP 수출 지표: 빌보드 차트 진입 증가율</span>
   </div>
   <!-- 상단: 주요 그래프 -->
   <div class="dashboard">
     <div class="row">
       <!-- 왼쪽: 데뷔 수 + 이동평균 -->
       <div class="chart-box">
-        <canvas id="kpopChart"></canvas>
-
+        <canvas id="trendChart"></canvas>
+        <canvas id="foreignRatioChart" style="margin-top:40px;"></canvas>
       </div>
 
+      <!-- 오른쪽: 국적 비율 -->
+      <div class="chart-box">
+        <canvas id="nationalityChart"></canvas>
+      </div>
     </div>
   </div>
 
 
 
 <script src="{{ url_for('static', filename='menuboard.js') }}"></script>
-<script src="{{ url_for('static', filename='page3script.js') }}"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
