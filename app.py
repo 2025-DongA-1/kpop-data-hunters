@@ -6,7 +6,15 @@ app = Flask(__name__, template_folder='frontend')
 
 @app.route("/")
 def index():
-    return render_template("dashboard.html")
+    return render_template("page1.html")
+
+@app.route("/page2")
+def page1():
+    return render_template("page2.html")
+
+@app.route("/page3")
+def page2():
+    return render_template("page3.html")
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)

@@ -1,26 +1,23 @@
-/* 💎 Pop Star Jewel Theme */
+💎 Pop Star Jewel Theme
 :root {
-  --gem-pink: #F29BDB;      /* 루비 핑크 */
+  --gem-pink: #ffffff;      /* 루비 핑크 */
   --soft-rose: #F2C9E7;     /* 로즈 쿼츠 */
   --amethyst: #CA38F2;      /* 자수정 보라 (포인트) */
   --opal: #F2F2F2;          /* 오팔 화이트 (배경) */
-  --onyx: #0D0D0D;          /* 오닉스 블랙 (텍스트) */
-}
+  --onyx: #0D0D0D;          /* 오닉스 블랙 (텍스트) */ 
+} 
 
 /* ✨ 전체 */
 body {
-  background-color: var(--opal);
+  background: url("bgimg.jpg");
   color: var(--onyx);
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 15px;
   margin: 0;
-  padding: 50px 0;
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: radial-gradient(circle at 30% 20%, rgba(242, 155, 219, 0.3), transparent 70%),
-                    radial-gradient(circle at 80% 60%, rgba(202, 56, 242, 0.25), transparent 80%);
-  background-attachment: fixed;
 }
 
 
@@ -28,14 +25,32 @@ body {
 /* 💎 대시보드 */
 .dashboard {
   width: 1200px;
+  height: 100%;
   background: white;
   border-radius: 20px;
-  border: 1px solid rgba(202, 56, 242, 0.25);
-  
-  padding: 40px;
-  margin-bottom: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 50px;
+  margin-top: 20px;
+  margin-left: 220px;
   backdrop-filter: blur(6px);
   transition: all 0.3s ease;
+  justify-content: center;  /* ✅ 세로 중앙 */
+  align-items: center;  
+  overflow: hidden;
+}
+
+.title{
+  margin-left: 220px;
+  font-size: 30px;
+  font-weight: 700;
+  padding: 1%;
+}
+
+img#kdhlogo{
+  display: block;
+  margin: 0 auto;   /* ✅ 중앙 정렬 */
+  width: 180px;
+  height: 120px;
 }
 
 /* hover 효과 제거 (고정형 빛감 유지) */
@@ -44,6 +59,13 @@ body {
   box-shadow:
     0 4px 25px rgba(242, 155, 219, 0.25),
     inset 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* ✅ 현재 선택된 메뉴 강조 */
+.sidebar .menu li a.active {
+  background: rgba(255, 255, 255, 0.5);
+  color: #6B2FA2;
+  font-weight: 700;
 }
 
 /* 💠 차트 박스 */
@@ -87,60 +109,42 @@ canvas {
   box-shadow: 0 0 20px rgba(202, 56, 242, 0.15);
 }
 
-/* 기본 세팅 */
-body {
-  margin: 0;
-  overflow-x: hidden;
-  background: #f2f2f2;
-  font-family: "Pretendard", sans-serif;
-}
-
-/* === 토글 버튼 === */
-.menu-toggle {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 1001;
-  background: linear-gradient(135deg, #F29BDB, #CA38F2);
-  color: white;
-  border: none;
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-size: 18px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: left 0.4s ease;
-}
-
 /* === 사이드 메뉴 === */
 .sidebar {
-  position: fixed;
+  /* background: url("bgimg.jpg"); */
+  position: absolute;
   top: 0;
-  left: -220px;
-  width: 220px;
-  height: 100vh;
-  background: linear-gradient(180deg, #F29BDB, #CA38F2);
+  left: 0px;
+  width: 250px;
+  height: 95dvh;
+  background: linear-gradient(180deg, #ecbbdf, #F29BDB);
   color: white;
-  padding-top: 60px;
-  /* transition: left 0.4s ease; */
+  padding-top: 40px;  /* ✅ 위 여백 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* ✅ 가로 중앙 정렬 */
   box-shadow: 4px 0 10px rgba(0, 0, 0, 0.15);
   z-index: 1000;
+  overflow:hidden;
 }
 
 /* 메뉴 항목 */
 .sidebar .menu {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin-top: 30px;  /* 로고와 간격 */
+  width: 100%;       /* ✅ 전체 폭 사용 */
+  text-align: left;  /* ✅ 왼쪽 정렬 */
+  padding-left: 30px; /* 🔸 살짝 들여쓰기 */
 }
-
 .sidebar .menu li a {
   display: block;
-  padding: 14px 20px;
+  padding: 16px 10px;
   color: white;
   text-decoration: none;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
+  overflow: hidden;
   /* transition: background 0.3s ease; */
 }
 
@@ -149,20 +153,8 @@ body {
   backdrop-filter: blur(6px);
 }
 
-/* === 메인 콘텐츠 === */
-.main-content {
-  transition: margin-left 0.4s ease;
-  padding: 40px;
-}
 
 /* === 활성화 시 (열림 상태) === */
 .sidebar.active {
   left: 0;
 }
-
-/* .menu-toggle.active {
-  left: 240px; 메뉴 폭 + 여백 */
-
-
-/* .main-content.shifted {
-  margin-left: 220px; /* 메뉴가 열린 만큼 밀림 */
