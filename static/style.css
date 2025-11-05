@@ -46,6 +46,61 @@ body {
   padding: 1%;
 }
 
+.title span {
+  font-family: 'Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; /* 부드러운 한글 웹폰트 */
+  font-weight: 700;          /* 굵기 유지 */
+  font-size: 50px;           /* 크기 유지 (원본과 동일) */
+  line-height: 1.35;         /* 글줄 간격으로 답답함 해소 */
+  letter-spacing: 0.8px;     /* 미세 자간으로 세련미 */
+  color: #6a78ee;            /* 포인트 컬러 */
+  -webkit-font-smoothing: antialiased;  /* 렌더링 선명도 개선 */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 로고풍 타이포 */
+.kdh-logo{
+  /* 타이틀 기존 배치 유지 */
+  font-family: 'Bebas Neue', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight: 700;
+  font-size: 50px;            /* 기존 크기 유지 */
+  letter-spacing: 1.2px;      /* 로고 감 */
+  text-transform: uppercase;  /* 로고 톤 (원문 한글은 그대로, 영문만 적용) */
+  line-height: 1.15;
+
+  /* 핵심: 글자 내부에 오로라 그라디언트 + 유광 */
+  background:
+    radial-gradient(120% 180% at 20% 10%, rgba(255,255,255,.9), rgba(255,255,255,0) 40%) ,
+    linear-gradient(120deg, #2dfdff 0%, #6a78ee 35%, #b9f7ff 55%, #8a42ff 75%, #2dfdff 100%);
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+
+  /* 날카로운 엣지 */
+  -webkit-text-stroke: 1px rgba(255,255,255,.35);
+
+  /* 외광(네온) */
+  text-shadow:
+    0 2px 8px rgba(106,120,238,.45),
+    0 0 18px rgba(45,253,255,.35),
+    0 0 32px rgba(138,66,255,.25);
+
+  /* 미세 애니메이션(살짝만 움직이는 오로라) */
+  animation: kdhAurora 9s ease-in-out infinite alternate;
+
+}
+
+/* 밝은 배경에서 가독성 보강용(원하면 끄기 가능) */
+@supports not (-webkit-background-clip: text) {
+  .kdh-logo { color:#6a78ee; text-shadow:none; }
+}
+
+/* 오로라 움직임 */
+@keyframes kdhAurora{
+  0%   { background-position: 0% 40%; }
+  100% { background-position: 100% 60%; }
+}
+
 img#kdhlogo{
   display: block;
   margin: 0 auto;   /* ✅ 중앙 정렬 */
