@@ -4,90 +4,155 @@
   <meta charset="UTF-8">
   <title>K-pop 아이돌 대시보드</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="../static/debut_data.js"></script>
+  <script src="./debut_data.js"></script>
   <style>
-    body {
-      background: #f8f9fa;
-      color: #212529; 
-      font-family: 'Noto Sans KR', sans-serif;
-      margin: 0;
-      padding: 50px 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .dashboard {
-      width: 1200px;
-      background: #ffffff; 
-      border-radius: 18px;
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
-      padding: 40px;
-      margin-bottom: 40px;
-    }
-
-    .row {
-      display: flex;
-      justify-content: space-between;
-      gap: 40px;
-    }
-
-    .chart-box {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    canvas {
-      width: 100%;
-      height: 400px;
-    }
-
-    #trendChart {
-      height: 500px; /* 왼쪽 그래프 높이 확대 */
-    }
-
-    .empty-box {
-      flex: 1;
-      height: 400px;
-      background: #f0f0f0;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #6c757d;
-      font-size: 18px;
-    }
-    .chart-box {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  justify-content: flex-start; /* 추가 */
+ 
+/* 💎 Pop Star Jewel Theme */
+:root {
+  --gem-pink: #F29BDB;      /* 루비 핑크 */
+  --soft-rose: #F2C9E7;     /* 로즈 쿼츠 */
+  --amethyst: #CA38F2;      /* 자수정 보라 (포인트) */
+  --opal: #F2F2F2;          /* 오팔 화이트 (배경) */
+  --onyx: #0D0D0D;          /* 오닉스 블랙 (텍스트) */
 }
-    .project-title {
-      width: 1300px;
-      text-align: center;
-      background: linear-gradient(80deg, #a18cd1 0%, #fbc2eb 100%);
-      color: #ffffff;
-      font-size: 15px;
-      font-weight: 500;
-      padding: 4px 0;
-      border-radius: 14px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-      letter-spacing: 1px;
-      margin-bottom: 30px;
-      font-family: 'Noto Sans KR', sans-serif;
-    }
+
+/* ✨ 전체 */
+body {
+  background-color: var(--opal);
+  color: var(--onyx);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
+  margin: 0;
+  padding: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: radial-gradient(circle at 30% 20%, rgba(242, 155, 219, 0.3), transparent 70%),
+                    radial-gradient(circle at 80% 60%, rgba(202, 56, 242, 0.25), transparent 80%);
+  background-attachment: fixed;
+}
+
+/* 💫 타이틀 */
+.project-title {
+  width: 1300px;
+  text-align: center;
+  background: linear-gradient(90deg, var(--gem-pink), var(--soft-rose));
+  color: #F3F1FB;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 20px 0;
+  border-radius: 30px;
+  border: 1px solid rgba(202, 56, 242, 0.2);
+  letter-spacing: 1px;
+  margin-bottom: 35px;
+}
+
+/* 💎 대시보드 */
+.dashboard {
+  width: 1200px;
+  background: white;
+  border-radius: 20px;
+  border: 1px solid rgba(202, 56, 242, 0.25);
+  
+  padding: 40px;
+  margin-bottom: 40px;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+/* hover 효과 제거 (고정형 빛감 유지) */
+.dashboard:hover {
+  transform: none;
+  box-shadow:
+    0 4px 25px rgba(242, 155, 219, 0.25),
+    inset 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* 💠 차트 박스 */
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.chart-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 📊 캔버스 */
+canvas {
+  width: 100%;
+  height: 400px;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid rgba(202, 56, 242, 0.25);
+  box-shadow:
+    inset 0 0 20px rgba(242, 155, 219, 0.25),
+    0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* 💎 빈 박스 */
+.empty-box {
+  flex: 1;
+  height: 400px;
+  background: linear-gradient(135deg, #fff, var(--soft-rose));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--amethyst);
+  font-size: 15px;
+  border: 1px dashed rgba(202, 56, 242, 0.4);
+  box-shadow: 0 0 20px rgba(202, 56, 242, 0.15);
+}
+
+/* 💜 버튼 */
+button {
+  background: linear-gradient(90deg, var(--gem-pink), var(--amethyst));
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 20px;
+  font-size: 15px;
+  cursor: default;
+  box-shadow:
+    0 0 12px rgba(202, 56, 242, 0.4),
+    inset 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+/* hover 없음 */
+button:hover {
+  background: linear-gradient(90deg, var(--gem-pink), var(--amethyst));
+}
+
+/* 🌃 하단 도시 이미지 (선택) */
+body::after {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: url("../static/images/city.png") no-repeat center bottom;
+  background-size: cover;
+  opacity: 0.8;
+  filter: hue-rotate(270deg) brightness(1.05);
+  z-index: 0;
+}
+
+
 
   </style>
 </head>
 <body>
-
+  
   <div class="project-title">
     <h1>아이돌 국적 데이터로 본 K-POP 글로벌라이제이션</h1>
   </div>
+  
 
   <!-- 상단: 주요 그래프 -->
   <div class="dashboard">
@@ -189,7 +254,8 @@
             label: '데뷔 아이돌 수',
             data: counts,
             backgroundColor: 'rgba(54, 162, 235, 0.8)',
-            borderWidth: 0
+            borderWidth: 0,
+            order: 2 // ✅ 막대를 뒤로 보냄 (낮을수록 먼저 그림)
           },
           {
             label: '3년 이동평균',
@@ -199,7 +265,8 @@
             borderWidth: 3,
             pointRadius: 4,
             fill: false,
-            tension: 0.3
+            tension: 0.3,
+            order: 1 // ✅ 라인을 위로 올림 (높을수록 나중에 그림)
           }
         ]
       },
