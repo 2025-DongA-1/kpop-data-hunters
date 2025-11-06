@@ -56,7 +56,7 @@ async function drawKpopChart() {
             font: { size: 14 }
           },
           ticks: { color: "#ccc" },
-          grid: { color: "#aaa" },
+          grid: { color: "#ccc" },
           beginAtZero: true,
           suggestedMax: 3.5
         }

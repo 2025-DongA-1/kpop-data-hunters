@@ -172,7 +172,7 @@ canvas {
   left: 0px;
   width: 250px;
   height: 95dvh;
-  background: linear-gradient(180deg, #ecbbdf, #F29BDB);
+  background: linear-gradient(180deg, #b78bf0, #ecbbdf);
   color: white;
   padding-top: 40px;  /* ✅ 위 여백 */
   display: flex;
